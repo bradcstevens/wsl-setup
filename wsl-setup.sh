@@ -63,7 +63,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 # Instll Packages
-brew update && brew install tree gcc python git docker docker-machine node nvm gh helm kubectl derailed/k9s/k9s
+brew update && brew install tree gcc python git docker docker-machine node nvm gh helm kubectl derailed/k9s/k9s kustomize
 
 git config --global user.email "brad@bradcstevens.com"
 git config --global user.name "Brad Stevens"

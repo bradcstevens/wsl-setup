@@ -63,7 +63,18 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 # Instll Packages
-brew update && brew install tree gcc python git docker docker-machine node nvm gh helm kubectl derailed/k9s/k9s kustomize
+brew update && brew install tree gcc python git docker docker-machine node nvm gh helm kubectl derailed/k9s/k9s kustomize pyenv
 
 git config --global user.email "brad@bradcstevens.com"
 git config --global user.name "Brad Stevens"
+
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs)-prod $(lsb_release -cs) main" > /etc/apt/sources.list.d/dotnetdev.list'
+
+sudo apt-get update
+sudo apt-get build-essential zlib1g-dev libffi-dev libssl-dev libbz2-dev libreadline-dev libsqlite3-dev liblzma-dev python-tk python3-tk -y
+sudo apt-get install azure-functions-core-tools-4 -Y
+
+curl -fsSL https://aka.ms/install-azd.sh | bash

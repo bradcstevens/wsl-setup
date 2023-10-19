@@ -1,8 +1,19 @@
 # Set Terminal Hostname to Distro
 DISTRO=$(( lsb_release -ds || cat /etc/*release || uname -om ) 2>/dev/null | head -n1 | sed -e 's/\s\+/-/g')
 
-(echo; echo 'export PS1="\033[32m\]\u@'$DISTRO'\[\033[00m\]:\[\033[34m\]\w\[\033[00m\]$ "') >> ~/.profile
+(echo; echo 'export PS1="\033[32m\u@'$DISTRO'\[\033[00m\]:\[\033[34m\]\w\[\033[00m\]$ "') >> ~/.profile
 
+
+':
+0;30m   Black
+0;31m   Red
+0;32m   Green
+0;33m   Yellow
+0;34m   Blue
+0;35m   Purple
+0;36m   Cyan
+0;37m   White
+'
 source ~/.profile
 
 # Updates
@@ -55,7 +66,7 @@ source ~/.bashrc
 # Install Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> ~/.profile
+(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/bradstevens/.bashrc
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
@@ -63,7 +74,25 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 # Instll Packages
-brew update && brew install tree gcc python git docker docker-machine node nvm gh helm kubectl derailed/k9s/k9s kustomize pyenv
+brew update
+
+brew install \
+    tree \
+    gcc \
+    python \
+    git \
+    docker \
+    docker-machine \
+    node \
+    nvm \
+    gh \
+    helm \
+    kubectl \
+    derailed/k9s/k9s \
+    kustomize \
+    pyenv \
+    rust \
+    portaudio
 
 git config --global user.email "brad@bradcstevens.com"
 git config --global user.name "Brad Stevens"
@@ -74,7 +103,27 @@ sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
 sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs)-prod $(lsb_release -cs) main" > /etc/apt/sources.list.d/dotnetdev.list'
 
 sudo apt-get update
-sudo apt-get build-essential zlib1g-dev libffi-dev libssl-dev libbz2-dev libreadline-dev libsqlite3-dev liblzma-dev python-tk python3-tk -y
-sudo apt-get install azure-functions-core-tools-4 -Y
+
+sudo apt-get install -y \
+    build-essential \
+    zlib1g-dev \
+    libffi-dev \
+    libssl-dev \
+    libbz2-dev \
+    libreadline-dev \
+    libsqlite3-dev \
+    liblzma-dev \
+    python-tk \
+    python3-tk \
+    azure-functions-core-tools-4 \
+    nvidia-cuda-toolkit \
+    python3-pyaudio \
+    cython3 \
+    portaudio19-dev \
+    python3-all-dev
+
+pip install git+https://github.com/openai/whisper.git 
+
+pip install setuptools-rust cython pyaudio
 
 curl -fsSL https://aka.ms/install-azd.sh | bash
